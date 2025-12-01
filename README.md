@@ -4,15 +4,13 @@
 ### Manager PC (Ubuntu)
 ```
 cd auto_tma
-python3 -m pip install -r requirements.txt
 python3 -m pip install -e .
 ```
 
 ### Measurement GUI PC (Windows)
 Environment should be built on powershell
 ```
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\auto_tma
-python3 -m pip install -r requirements.txt
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument
 python3 -m pip install -e .
 ```
 
