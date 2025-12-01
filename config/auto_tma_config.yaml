@@ -1,0 +1,14 @@
+method:
+  file_name: "auto_tma.ngb-s-dil"
+  param:
+    lab: "Bldg.12 005/007"
+    project: "auto_tma_test"
+    measurer: "a-san"
+    comment: ""
+    #sample_id:  # define in experiment
+    sample_name: "poly"
+    sample_length: 20
+    sample_width: 5
+    #sample_thickness:  # define in experiment
+    sample_material: "polyethylene"
+    result_file_name: "result"
