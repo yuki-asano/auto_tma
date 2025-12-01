@@ -1,21 +1,20 @@
 # auto_tma
 
-## install
-Manager PC (Ubuntu)
+## Install
+### Manager PC (Ubuntu)
 ```
 cd auto_tma
 python3 -m pip install -r requirements.txt
 python3 -m pip install -e .
 ```
 
-gui PC (Windows)
+### Measurement GUI PC (Windows)
+Environment should be built on powershell
 ```
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\labautopy
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\auto_tma
+python3 -m pip install -r requirements.txt
 python3 -m pip install -e .
 ```
-memo
-- physbo may not be installed on powershell??.
-
 
 ## 実験準備
 NEXTAGE
@@ -29,8 +28,9 @@ NEXTAGE
   - 左手のツールを外して初期位置へ置く <- 「DIO」
   - ロボットを初期姿勢に戻す <- 「Initial Pose」
 
-## TMA工程開始
-manager PC (ubuntu)
+
+## 自動TMA工程 実行
+### Manager PC (ubuntu)
 ```
 [terminal1]
 roscore
@@ -42,7 +42,7 @@ roslaunch rosbridge_server rosbridge_websocket.launch  # 他PCとroslibで通信
 roslaunch mitsutoyo_instrumet_ros1 mitsutoyo_micrometer.launch
 ```
 
-gui PC (windows)
+### Measurement GUI PC (windows)
 ```
 [terminal1] wsl
 roscore
@@ -55,18 +55,17 @@ python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config
 # 注意: ターミナルで直接 ```.\netzsch_measurement_server_thread.py```とすると,pythonが別端末で立ち上がりエラー確認できない
 ```
 
-
-manager PC (ubuntu) 再び
+### Manager PC (ubuntu) 再び
 ```
 [terminal4]
 roscd auto_tma/scripts
 ./auto_tma.py
 ```
 
-工程全体でなく, 測定だけで良ければ,
-manager PC か wslで
+### テスト用
+工程全体でなく,測定だけで良ければ,ターミナルからservice callを送る. 
 ```
-rosservice call /netzsch_measurement_server "sample_id: 0"
+rosservice call /netzsch_measurement_server "sample_id: 0" sample_thickness: 0.0" 
 ```
 
 ## トラブルシューティング
