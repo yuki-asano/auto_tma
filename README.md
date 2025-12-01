@@ -27,11 +27,13 @@ python3 -m pip install -e .  # including netzsch_instrument install
   - ロボットを初期姿勢に戻す <- 「Initial Pose」
  
 ### TMA
-操作用GUIを起動(PCからの操作が必要な場合)
-```
-cd netzsch_instrument/netzsch_instrument/tma402f3
-./tma_control_gui.py
-```
+- 本体
+  - 初期状態に戻す (furnanceを閉じる)
+- 操作用GUIを起動(PCからの操作が必要な場合)
+  ```
+  cd netzsch_instrument/netzsch_instrument/tma402f3
+  ./tma_control_gui.py
+  ```
 
 ## 自動TMA工程 実行
 ### Manager PC (ubuntu)
