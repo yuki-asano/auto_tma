@@ -10,12 +10,12 @@ python3 -m pip install -e .
 ### Measurement GUI PC (Windows)
 Environment should be built on powershell
 ```
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument
-python3 -m pip install -e .
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\auto_tma
+python3 -m pip install -e .  # including netzsch_instrument install
 ```
 
 ## 実験準備
-NEXTAGE
+### NEXTAGE
 - 本体
   - 電源を入れる (緑スイッチ)
   - リセット -> 肩LEDが緑 (青スイッチ)
@@ -25,7 +25,13 @@ NEXTAGE
 - 初期状態確認
   - 左手のツールを外して初期位置へ置く <- 「DIO」
   - ロボットを初期姿勢に戻す <- 「Initial Pose」
-
+ 
+### TMA
+操作用GUIを起動(PCからの操作が必要な場合)
+```
+cd netzsch_instrument/netzsch_instrument/tma402f3
+./tma_control_gui.py
+```
 
 ## 自動TMA工程 実行
 ### Manager PC (ubuntu)
