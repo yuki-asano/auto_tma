@@ -1,3 +1,6 @@
+ros_client:
+  ip: "192.168.0.21"  # Manager PC
+  port: 9090
 method:
   file_name: "auto_tma.ngb-s-dil"
   param:
@@ -11,4 +14,4 @@ method:
     sample_width: 5
     #sample_thickness:  # define in experiment
     sample_material: "polyethylene"
-    result_file_name: "result"
+    result_file_name: "auto_tma_result"
