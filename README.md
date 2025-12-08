@@ -50,10 +50,7 @@ roslaunch mitsutoyo_instrumet_ros1 mitsutoyo_micrometer.launch
 
 ### Measurement GUI PC (windows)
 ```
-[terminal1] wsl
-roscore
-
-[terminal2] powershell
+[terminal1] powershell
 cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument\ros1\scripts
 python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config.yaml
 
