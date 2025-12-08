@@ -156,7 +156,7 @@ def main(tma_auto=True, tare_force=True, do_measure=True):
         sample_id = i
 
         print('')
-        print('########## start sample_id: %s measurement ##########'% sample_id)
+        print('########## start sample_id: %s measurement ########################'% sample_id)
         print('')
         print('########## micrometer measure (NEXTAGE) ##########')
         # 場合分け
@@ -339,42 +339,42 @@ def main(tma_auto=True, tare_force=True, do_measure=True):
 
         if do_measure:
             if current_sample_number==number_of_sample+1:
-                print('no measure')
+                print('skip measurement')
             else:
-                # get measured value
-                while True:
-                    # service call
+                # register service
+                rospy.wait_for_service("/netzsch_measurement_server")
+                netzsch_measurement_server = rospy.ServiceProxy("/netzsch_measurement_server", NETZSCH_Measurement)
+
+                # wait for result
+                while not rospy.is_shutdown():
                     try:
+                        # service call in every loop
                         rospy.loginfo(f"try to measure with sample_id={sample_id}")
-                        netzsch_measurement_server = rospy.ServiceProxy("/netzsch_measurement_server", NETZSCH_Measurement)
-                        time.sleep(0.1)  # wait for registering
                         resp = netzsch_measurement_server(sample_id=sample_id, sample_thickness=thickness)
-                        time.sleep(0.1)  # wait for registering
 
                         if(resp.success==True):
                             rospy.loginfo('measurement succeeded')
                             rospy.loginfo(f"success={resp.success}, message={resp.message}")
-
                             break
                         else:
                             rospy.loginfo('under measurement')
-                            time.sleep(10) # 10sごとに確認
+                            rospy.loginfo(f"success={resp.success}, message={resp.message}")
+                            rospy.sleep(10) # 10sごとに確認
 
-                    except KeyboardInterrupt:
-                        print('ctrl+c')
-                        sys.exit(1)
                     except rospy.ServiceException as e:
                         rospy.logerr(f"Service call failed: {e}")
+                        rospy.sleep(1)
 
                 # communication to nextage.
                 tma_status = 'measure_completed' # ?
                 nx_if.set_var_socket("tma_status", tma_status)  # ?
 
+                print('')
                 print('############ Result of sample_id: %s ############' % sample_id)
                 print('thickness:', thickness)
                 print('########################################')
         else:
-            print('skip measurement')
+            print('no measure')
 
 
     # todo
@@ -383,7 +383,7 @@ def main(tma_auto=True, tare_force=True, do_measure=True):
     print('########## end of whole TMA process ##########')
 
 
-main(tma_auto=True, tare_force=False, do_measure=False)
+#main(tma_auto=True, tare_force=False, do_measure=False)
 #main(tma_auto=True, tare_force=False, do_measure=True)
 #main(tma_auto=True, tare_force=True, do_measure=False)
-#main(tma_auto=True, tare_force=True, do_measure=True)
+main(tma_auto=True, tare_force=True, do_measure=True)
