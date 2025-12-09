@@ -28,7 +28,7 @@ def wait_until_enter():
 
 
 ###############################################################
-def main(tma_auto=True, tare_force=True, do_measure=True):
+def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
     # args
     # - tma_auto:
     #    - True  -> TMA実機の自動制御
@@ -51,7 +51,6 @@ def main(tma_auto=True, tare_force=True, do_measure=True):
     disassemble_counter = 0
     ## wrriten by TMA process
     tma_process        = 0
-    number_of_sample   = 2
     # variable (internal use)
     prev_thickness =    0
 
@@ -383,7 +382,7 @@ def main(tma_auto=True, tare_force=True, do_measure=True):
     print('########## end of whole TMA process ##########')
 
 
-#main(tma_auto=True, tare_force=False, do_measure=False)
-#main(tma_auto=True, tare_force=False, do_measure=True)
+#main(tma_auto=True, tare_force=False, do_measure=False, number_of_sample=2)
+#main(tma_auto=True, tare_force=False, do_measure=True, number_of_sample=3)
 #main(tma_auto=True, tare_force=True, do_measure=False)
-main(tma_auto=True, tare_force=True, do_measure=True)
+main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)
