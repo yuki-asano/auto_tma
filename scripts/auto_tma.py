@@ -59,8 +59,6 @@ def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
     sample_id = 0  # 0始まり
     motion_speed = 100  # reduce if slow motion required
 
-    # init ros
-    rospy.init_node('auto_tma')
     # publisher
     pub_sample_id = rospy.Publisher('/mitsutoyo_micrometer/write/sample_id', UInt32, queue_size=1)
     msg_sample_id = UInt32()
@@ -382,7 +380,9 @@ def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
     print('########## end of whole TMA process ##########')
 
 
-#main(tma_auto=True, tare_force=False, do_measure=False, number_of_sample=2)
-#main(tma_auto=True, tare_force=False, do_measure=True, number_of_sample=3)
-#main(tma_auto=True, tare_force=True, do_measure=False)
-main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)
+if __name__ == "__main__":
+    rospy.init_node("auto_tma", disable_signals=True)
+    #main(tma_auto=True, tare_force=False, do_measure=False, number_of_sample=2)
+    #main(tma_auto=True, tare_force=False, do_measure=True, number_of_sample=2)
+    #main(tma_auto=True, tare_force=True, do_measure=False)
+    main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)
