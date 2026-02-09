@@ -62,7 +62,11 @@ python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config
 ```
 [terminal4]
 roscd auto_tma/scripts
-./auto_tma.py
+./auto_tma_gui.py -> GUIが起動。Runをクリックして実行.
+
+CUIで、
+./auto_tma.py # -> 内部で main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)           
+でも良い
 ```
 
 ### テスト用
