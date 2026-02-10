@@ -49,14 +49,14 @@ left_bottom_frame.pack(side="bottom", fill="y")
 right_frame.pack(side="right", fill="y", expand=True)
 
 
-# define TMA controller (left top)
-tk.Label(left_top_frame, text="TMA controller", font=("Arial", 12, "bold")).grid(row=0, column=0)
-tk.Button(left_top_frame, text="furnance_open_full", command=tma_if.furnance_open_full).grid(row=1, column=0)
-tk.Button(left_top_frame, text="furnance_close_full", command=tma_if.furnance_close_full).grid(row=2, column=0)
-tk.Button(left_top_frame, text="init_pushrod_for_sample_set", command=tma_if.init_pushrod_for_sample_set).grid(row=3, column=0)
+# define TMA control function (left top)
+tk.Label(left_top_frame, text="TMA control function", font=("Arial", 12, "bold")).pack(anchor="w")
+tk.Button(left_top_frame, text="furnance_open_full", command=tma_if.furnance_open_full).pack(anchor="w")
+tk.Button(left_top_frame, text="furnance_close_full", command=tma_if.furnance_close_full).pack(anchor="w")
+tk.Button(left_top_frame, text="init_pushrod_for_sample_set", command=tma_if.init_pushrod_for_sample_set).pack(anchor="w")
 
 # define TMA button (left bottom)
-tk.Label(left_bottom_frame, text="TMA panel", font=("Arial", 12, "bold")).grid(row=0, column=0)
+tk.Label(left_bottom_frame, text="TMA control panel", font=("Arial", 12, "bold"), anchor="w").grid(row=0, column=0)
 tk.Button(left_bottom_frame, text="furnance_open", command=tma_if.furnance_open_full).grid(row=1, column=0, pady=5)  # full open instead open during pushing
 tk.Button(left_bottom_frame, text="furnance_close", command=tma_if.furnance_close_full).grid(row=1, column=1, pady=5)  # full close instead close during pushing
 
