@@ -28,16 +28,17 @@ def wait_until_enter():
 
 
 ###############################################################
-def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
+def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
     # args
     # - tma_auto:
     #    - True  -> TMA実機の自動制御
     #    - False -> TMAは自動で動かない. 人が動作させる.
     # - tare_force:
     #    - False  -> skip tare_force()
-    # - do_measure:
-    #    - True  -> 自動gui制御でTMA測定をする
-    #    - False -> 測定をskip
+    # - measure_mode:
+    #    - 0 -> [AUTO]   自動gui制御でTMA測定をする
+    #    - 1 -> [MANUAL] マニュアル操作でTMA測定をする
+    #    - 2 -> [SKIP]   測定をskip
     #
     # status
     nextage_status = None  # {'preparing', 'ready', 'working' 'completed'}
@@ -63,6 +64,22 @@ def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
     pub_sample_id = rospy.Publisher('/mitsutoyo_micrometer/write/sample_id', UInt32, queue_size=1)
     msg_sample_id = UInt32()
 
+    ###############################################################
+    print('')
+    print('########## Params ##########')
+    print('tma_auto: %s'         % tma_auto)
+    print('tare_force: %s'       % tare_force)
+    print('measure_mode: %s'     % measure_mode)
+    print('number_of_sample: %s' % number_of_sample)
+    print('')
+
+    # error check
+    if measure_mode not in (0, 1, 2):
+        print('[ERROR] wrong arg. measure_mode: %s' % measure_mode)
+        sys.exit(1)
+    if number_of_sample not in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10):
+        print('[ERROR] wrong arg. number_of_sample: %s' % number_of_sample)
+        sys.exit(1)
 
     ###############################################################
     print('')
@@ -123,7 +140,7 @@ def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
     # check rosnode before process starts
     print('waiting for service servers')
     rospy.wait_for_service('/get_micrometer_value')  # service起動まで待つ
-    if do_measure:
+    if measure_mode == 0:
         rospy.wait_for_service('/netzsch_measurement_server')
     time.sleep(1)  # wait for rosnode init
 
@@ -334,7 +351,8 @@ def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
         tma_status = 'in_operation'
         nx_if.set_var_socket("tma_status", tma_status)  # "do not work"
 
-        if do_measure:
+        if measure_mode == 0:
+            print('measure_mode: [AUTO]')
             if current_sample_number==number_of_sample+1:
                 print('skip measurement')
             else:
@@ -362,27 +380,32 @@ def main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2):
                         rospy.logerr(f"Service call failed: {e}")
                         rospy.sleep(1)
 
-                # communication to nextage.
-                tma_status = 'measure_completed' # ?
-                nx_if.set_var_socket("tma_status", tma_status)  # ?
-
-                print('')
-                print('############ Result of sample_id: %s ############' % sample_id)
-                print('thickness:', thickness)
-                print('########################################')
+        elif measure_mode == 1:
+            print('measure_mode: [MANUAL]')
+            print('Please measure TMA manually')
+            wait_until_enter()
+        elif measure_mode == 2:
+            print('measure_mode: [SKIP]')
         else:
-            print('no measure')
+            print('wrong arg. measure_mode: %s' % measure_mode)
 
+        # communication to nextage.
+        tma_status = 'measure_completed'
+        nx_if.set_var_socket("tma_status", tma_status)
 
-    # todo
-    # check disassemble_counter
+        print('')
+        print('############ Result of sample_id: %s ############' % sample_id)
+        print('thickness:', thickness)
+        print('########################################')
+
+    # check disassemble_counter here if necessary
     print('')
     print('########## end of whole TMA process ##########')
 
 
 if __name__ == "__main__":
     rospy.init_node("auto_tma", disable_signals=True)
-    #main(tma_auto=True, tare_force=False, do_measure=False, number_of_sample=2)
-    #main(tma_auto=True, tare_force=False, do_measure=True, number_of_sample=2)
-    #main(tma_auto=True, tare_force=True, do_measure=False)
-    main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)
+    #main(tma_auto=True, tare_force=False, measure_mode=2, number_of_sample=2)
+    #main(tma_auto=True, tare_force=False, measure_mode=0, number_of_sample=2)
+    #main(tma_auto=True, tare_force=True, measure_mode=2)
+    main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2)

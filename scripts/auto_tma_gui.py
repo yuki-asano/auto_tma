@@ -20,7 +20,7 @@ def on_run():
             main(
                 tma_auto=var_tma_auto.get(),
                 tare_force=var_tare_force.get(),
-                do_measure=var_do_measure.get(),
+                measure_mode=int(entry_num_measure.get()),
                 number_of_sample=int(entry_num_sample.get())
             )
 
@@ -73,14 +73,18 @@ tk.Button(left_bottom_frame, text="tare_force", command=tma_if.tare_force).grid(
 tk.Label(right_frame, text="AutoTMA", font=("Arial", 12, "bold")).pack(anchor="w")
 var_tma_auto = tk.BooleanVar(value=True)
 var_tare_force = tk.BooleanVar(value=True)
-var_do_measure = tk.BooleanVar(value=True)
 
 tk.Checkbutton(right_frame, text="TMA auto move", variable=var_tma_auto).pack(anchor="w")
 tk.Checkbutton(right_frame, text="tare force", variable=var_tare_force).pack(anchor="w")
-tk.Checkbutton(right_frame, text="do measure", variable=var_do_measure).pack(anchor="w")
+
+# measure_mode
+tk.Label(right_frame, text="measure_mode").pack(anchor="w")
+entry_num_measure = tk.Entry(right_frame)
+entry_num_measure.insert(0, "0")
+entry_num_measure.pack(anchor="w")
 
 # number of samples
-tk.Label(right_frame, text="Number of samples").pack(anchor="w")
+tk.Label(right_frame, text="number_of_sample").pack(anchor="w")
 entry_num_sample = tk.Entry(right_frame)
 entry_num_sample.insert(0, "2")
 entry_num_sample.pack(anchor="w")
