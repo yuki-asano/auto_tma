@@ -7,12 +7,13 @@ import threading
 import rospy
 from auto_tma import main
 from netzsch_instrument.tma402f3.tma402f3_interface import TMA402F3Interface
-
+from std_msgs.msg import Bool
 
 # connect to tma
 tma_ip = '192.168.0.20'
 tma_if = TMA402F3Interface(tma_ip)
 tma_if.connect_tma()
+
 
 def on_run():
     def worker():
@@ -30,6 +31,13 @@ def on_run():
             messagebox.showerror("Error", str(e))
 
     threading.Thread(target=worker, daemon=True).start()
+
+
+def pub_measure_finished():
+    pub = rospy.Publisher("/measure_finished", Bool, queue_size=1, latch=True)
+    rospy.loginfo("Publishing /measure_finished = True")
+    pub.publish(True)
+
 
 # tk
 root = tk.Tk()
@@ -60,7 +68,7 @@ tk.Label(left_bottom_frame, text="TMA control panel", font=("Arial", 12, "bold")
 tk.Button(left_bottom_frame, text="furnance_open", command=tma_if.furnance_open_full).grid(row=1, column=0, pady=5)  # full open instead open during pushing
 tk.Button(left_bottom_frame, text="furnance_close", command=tma_if.furnance_close_full).grid(row=1, column=1, pady=5)  # full close instead close during pushing
 
-tk.Button(left_bottom_frame, text="pushrod_up_slow", command=tma_if.pushrod_up_slow).grid(row=2, column=0, pady=10)
+tk.Button(left_bottom_frame, text="pushrod_up_slow", command=tma_if.pushrod_up_slow).grid(row=2, column=0, pady=5)
 tk.Button(left_bottom_frame, text="pushrod_up", command=tma_if.pushrod_up).grid(row=2, column=1, pady=5)
 tk.Button(left_bottom_frame, text="pushrod_stop", command=tma_if.pushrod_stop).grid(row=3, column=1)
 tk.Button(left_bottom_frame, text="pushrod_down_slow", command=tma_if.pushrod_down_slow).grid(row=4, column=0, pady=5)
@@ -78,7 +86,7 @@ tk.Checkbutton(right_frame, text="TMA auto move", variable=var_tma_auto).pack(an
 tk.Checkbutton(right_frame, text="tare force", variable=var_tare_force).pack(anchor="w")
 
 # measure_mode
-tk.Label(right_frame, text="measure_mode").pack(anchor="w")
+tk.Label(right_frame, text="measure_mode(0:AUTO, 1:MANUAL, 2:SKIP)").pack(anchor="w")
 entry_num_measure = tk.Entry(right_frame)
 entry_num_measure.insert(0, "0")
 entry_num_measure.pack(anchor="w")
@@ -91,6 +99,10 @@ entry_num_sample.pack(anchor="w")
 
 # Run button
 tk.Button(right_frame, text="Run", command=on_run).pack(anchor="w")
+
+# finish measure button
+tk.Label(right_frame, text="For manual measurement", font=("Arial", 11)).pack(anchor="w", pady=(20, 0))
+tk.Button(right_frame, text="Finish measurement", command=pub_measure_finished).pack(anchor="w")
 
 
 if __name__ == "__main__":

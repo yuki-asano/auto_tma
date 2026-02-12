@@ -351,14 +351,23 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
         tma_status = 'in_operation'
         nx_if.set_var_socket("tma_status", tma_status)  # "do not work"
 
-        if measure_mode == 0:
-            print('measure_mode: [AUTO]')
+        if measure_mode == 0 or measure_mode == 1:
+            if measure_mode == 0:
+                print('measure_mode: [AUTO]')
+            elif measure_mode == 1:
+                print('measure_mode: [MANUAL]')
+                print('Please measure TMA manually')
+
             if current_sample_number==number_of_sample+1:
                 print('skip measurement')
             else:
                 # register service
-                rospy.wait_for_service("/netzsch_measurement_server")
-                netzsch_measurement_server = rospy.ServiceProxy("/netzsch_measurement_server", NETZSCH_Measurement)
+                if measure_mode == 0:
+                    rospy.wait_for_service("/netzsch_measurement_server")
+                    netzsch_measurement_server = rospy.ServiceProxy("/netzsch_measurement_server", NETZSCH_Measurement)
+                elif measure_mode == 1:
+                    rospy.wait_for_service("/netzsch_measurement_server_mock")
+                    netzsch_measurement_server = rospy.ServiceProxy("/netzsch_measurement_server_mock", NETZSCH_Measurement)
 
                 # wait for result
                 while not rospy.is_shutdown():
@@ -380,10 +389,6 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
                         rospy.logerr(f"Service call failed: {e}")
                         rospy.sleep(1)
 
-        elif measure_mode == 1:
-            print('measure_mode: [MANUAL]')
-            print('Please measure TMA manually')
-            wait_until_enter()
         elif measure_mode == 2:
             print('measure_mode: [SKIP]')
         else:
