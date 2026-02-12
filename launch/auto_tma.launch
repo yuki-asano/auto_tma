@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+  <include file="$(find mitsutoyo_instrument_ros1)/launch/mitsutoyo_micrometer.launch" />
+
+  <node name="measurement_server_mock" pkg="netzsch_instrument_ros1" type="netzsch_measurement_server_mock.py" output="screen" />
+  <node name="auto_tma_gui" pkg="auto_tma" type="auto_tma_gui.py" output="screen" />
+
+</launch>
