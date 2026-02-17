@@ -28,7 +28,7 @@ def wait_until_enter():
 
 
 ###############################################################
-def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
+def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui_log_cb=None):
     # args
     # - tma_auto:
     #    - True  -> TMA実機の自動制御
@@ -72,6 +72,9 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
     print('measure_mode: %s'     % measure_mode)
     print('number_of_sample: %s' % number_of_sample)
     print('')
+    # gui log
+    if gui_log_cb:
+        gui_log_cb('AutoTMA started')
 
     # error check
     if measure_mode not in (0, 1, 2):
@@ -202,6 +205,10 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
                         rospy.loginfo('thickness obtained')
                         thickness = resp.value
                         rospy.loginfo(f"thickness: {thickness}")
+
+                        # display on gui
+                        if gui_log_cb:
+                            gui_log_cb('sample_id: %s, thickness: %s' % (sample_id, thickness))
 
                         # update sample_id for next sample
                         msg_sample_id.data = sample_id+1
@@ -406,6 +413,8 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2):
     # check disassemble_counter here if necessary
     print('')
     print('########## end of whole TMA process ##########')
+    if gui_log_cb:
+        gui_log_cb('AutoTMA finished')
 
 
 if __name__ == "__main__":
