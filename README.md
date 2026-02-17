@@ -18,12 +18,21 @@ For desktop app
 cd auto_tma/bin/
 cp auto_tma_app.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications/
-
-
-デバッグ
-gtk-launch auto_tma_app
-
 ```
+
+memo
+- app.desktopファイルをデスクトップに置きダブルクリックで起動するのは難しい.gnomeのセキュリティが上がっている？ようで、頑張ればできるかもしれないが、デフォルトでは難しい.
+- うまく起動できないときは、パス設定周りがうまくいっていない場合がある。絶対パスが安全。
+- .shには、.bashrcと同じように、関連pkgをexportしていく必要がある。
+- デバッグ
+  ```
+  単体で起動していく
+  cd auto_tma/bin
+  gtk-launch auto_tma_app.desktop
+
+  ./run_auto_tma.sh
+  など
+  ```
 
 ### Measurement GUI PC (Windows)
 Environment should be built on powershell
