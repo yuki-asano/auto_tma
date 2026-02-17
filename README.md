@@ -20,19 +20,6 @@ cp auto_tma_app.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications/
 ```
 
-memo
-- app.desktopファイルをデスクトップに置きダブルクリックで起動するのは難しい.gnomeのセキュリティが上がっている？ようで、頑張ればできるかもしれないが、デフォルトでは難しい.
-- うまく起動できないときは、パス設定周りがうまくいっていない場合がある。絶対パスが安全。
-- .shには、.bashrcと同じように、関連pkgをexportしていく必要がある。
-- デバッグ
-  ```
-  単体で起動していく
-  cd auto_tma/bin
-  gtk-launch auto_tma_app.desktop
-
-  ./run_auto_tma.sh
-  など
-  ```
 
 ### Measurement GUI PC (Windows)
 Environment should be built on powershell
@@ -66,7 +53,7 @@ python3 -m pip install -e .  # including netzsch_instrument install
 ### Manager PC (ubuntu)
 A. デスクトップアプリ起動ver
 ```
-AutoTMAのアイコンをクリック
+AutoTMAのアイコンをクリック（デスクトップショートカットに登録済み）
 
 or  
 アプリ一覧から (Superボタン)「AutoTMA」を実行
@@ -86,7 +73,7 @@ roslaunch auto_tma auto_tma.launch  # including below
   # rosrun auto_tma auto_tma_gui.py  # gui controller
 ```
 
-### Measurement GUI PC (windows)
+### Measurement PC (windows)
 ```
 [terminal1] powershell
 cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument\ros1\scripts
@@ -115,3 +102,16 @@ rosservice call /netzsch_measurement_server "sample_id: 0" sample_thickness: 0.0
 ## トラブルシューティング
 - マイクロメータ測定でスイッチをスカって押せない。
   - マイクロメータ本体が定位置からずれていないか確認。定位置は壁２面に当たる位置。動作中に引っかかってずれている可能性有り。画像認識でマイクロメータ本体を基準位置として動作が作成されているため。
+- デスクトップappが起動できない
+  - app.desktopファイルをデスクトップに置きダブルクリックで起動するのは難しい.gnomeのセキュリティが上がっている？ようで、頑張ればできるかもしれないが、デフォルトでは難しい.
+  - うまく起動できないときは、パス設定周りがうまくいっていない場合がある。絶対パスが安全。
+  - .shには、.bashrcと同じように、関連pkgをexportしていく必要がある。
+  - デバッグ
+    ```
+    単体で起動していく
+    cd auto_tma/bin
+    gtk-launch auto_tma_app.desktop
+  
+    ./run_auto_tma.sh
+    など
+    ```
