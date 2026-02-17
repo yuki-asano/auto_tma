@@ -57,9 +57,10 @@ python3 -m pip install -e .  # including netzsch_instrument install
 ### Manager PC (ubuntu)
 A. デスクトップアプリ起動ver
 ```
-アプリ一覧から (Superボタン)
-「AutoTMA」
-を実行
+AutoTMAのアイコンをクリック
+
+or  
+アプリ一覧から (Superボタン)「AutoTMA」を実行
 ```
 
 B. CUIから起動ver
