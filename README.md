@@ -2,9 +2,22 @@
 
 ## Install
 ### Manager PC (Ubuntu)
+本体
 ```
 cd auto_tma
 python3 -m pip install -e .
+```
+
+desktop app
+```
+1. 該当ファイルのパスをマシン固有のものに変更
+auto_tma_app.desktop内のパスを修正
+run_auto_tma.shのパスを修正
+
+2. 起動ファイル(.desktop)をcp
+cp auto_tma_app.desktop ~/.local/share/applications/
+cp auto_tma_app.desktop ~/Desktop/
+
 ```
 
 ### Measurement GUI PC (Windows)
@@ -37,6 +50,14 @@ python3 -m pip install -e .  # including netzsch_instrument install
 
 ## 自動TMA工程 実行
 ### Manager PC (ubuntu)
+A. デスクトップアプリ起動ver
+```
+アプリ一覧から (Superボタン)
+「AutoTMA」
+を実行
+```
+
+B. CUIから起動ver
 ```
 [terminal1]
 roscore
