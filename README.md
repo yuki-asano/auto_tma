@@ -8,15 +8,20 @@ cd auto_tma
 python3 -m pip install -e .
 ```
 
-desktop app
+For desktop app
 ```
 1. 該当ファイルのパスをマシン固有のものに変更
 auto_tma_app.desktop内のパスを修正
 run_auto_tma.shのパスを修正
 
 2. 起動ファイル(.desktop)をcp
+cd auto_tma/bin/
 cp auto_tma_app.desktop ~/.local/share/applications/
+update-desktop-database ~/.local/share/applications/
 cp auto_tma_app.desktop ~/Desktop/
+
+デバッグ
+gtk-launch auto_tma_app
 
 ```
 
