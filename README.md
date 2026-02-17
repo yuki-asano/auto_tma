@@ -42,10 +42,12 @@ python3 -m pip install -e .  # including netzsch_instrument install
 roscore
 
 [terminal2]
-roslaunch rosbridge_server rosbridge_websocket.launch  # 他PCとroslibで通信する場合に必要
+roslaunch auto_tma auto_tma.launch  # including below
 
-[terminal3]
-roslaunch mitsutoyo_instrumet_ros1 mitsutoyo_micrometer.launch
+  # roslaunch rosbridge_server rosbridge_websocket.launch  # 他PCとroslibで通信する場合に必要
+  # roslaunch mitsutoyo_instrumet_ros1 mitsutoyo_micrometer.launch  # micrometer
+  # rosrun netzsch_instrument_ros1 netzsch_measurement_server_mock.py  # measurement server mock for manual measurement
+  # rosrun auto_tma auto_tma_gui.py  # gui controller
 ```
 
 ### Measurement GUI PC (windows)
@@ -58,13 +60,12 @@ python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config
 # 注意: ターミナルで直接 ```.\netzsch_measurement_server_thread.py```とすると,pythonが別端末で立ち上がりエラー確認できない
 ```
 
-### Manager PC (ubuntu) 再び
+### GUI
+- Run クリックしすると、auto_tmaが開始.
+- Finish measurement -> manual測定時に、測定終了したらクリック
+  
 ```
-[terminal4]
-roscd auto_tma/scripts
-./auto_tma_gui.py -> GUIが起動。Runをクリックして実行.
-
-CUIで、
+起動はCUIで、
 ./auto_tma.py # -> 内部で main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)           
 でも良い
 ```
