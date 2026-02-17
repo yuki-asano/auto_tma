@@ -21,7 +21,7 @@ update-desktop-database ~/.local/share/applications/
 ```
 
 
-### Measurement GUI PC (Windows)
+### Measurement PC (Windows)
 Environment should be built on powershell
 ```
 cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\auto_tma
