@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, scrolledtext
 import threading
 import rospy
 from auto_tma import main
@@ -22,7 +22,8 @@ def on_run():
                 tma_auto=var_tma_auto.get(),
                 tare_force=var_tare_force.get(),
                 measure_mode=int(entry_num_measure.get()),
-                number_of_sample=int(entry_num_sample.get())
+                number_of_sample=int(entry_num_sample.get()),
+                gui_log_cb=write_log
             )
 
             messagebox.showinfo("Result", "Process finished")
@@ -42,18 +43,20 @@ def pub_measure_finished():
 # tk
 root = tk.Tk()
 root.title("AutoTMA GUI")
-root.geometry("600x400")
+root.geometry("800x400")
 
 
 # devide frame
 left_frame = tk.Frame(root, width=300, padx=10, pady=10)
 left_top_frame = tk.Frame(left_frame)
 left_bottom_frame = tk.Frame(left_frame)
+center_frame = tk.Frame(root, width=300, padx=10, pady=10)
 right_frame = tk.Frame(root, padx=10, pady=10)
 
 left_frame.pack(side="left", fill="y")
-left_top_frame.pack(side="top", fill="y", expand=True)
+left_top_frame.pack(side="top", fill="y")
 left_bottom_frame.pack(side="bottom", fill="y")
+center_frame.pack(side="left", fill="y")
 right_frame.pack(side="right", fill="y", expand=True)
 
 
@@ -77,32 +80,50 @@ tk.Button(left_bottom_frame, text="pushrod_down", command=tma_if.pushrod_down).g
 tk.Button(left_bottom_frame, text="tare_force", command=tma_if.tare_force).grid(row=5, column=1, pady=5)
 
 
-# define auto_tma exp (right)
-tk.Label(right_frame, text="AutoTMA", font=("Arial", 12, "bold")).pack(anchor="w")
+# define auto_tma exp (center)
+tk.Label(center_frame, text="AutoTMA", font=("Arial", 12, "bold")).pack(anchor="w")
 var_tma_auto = tk.BooleanVar(value=True)
 var_tare_force = tk.BooleanVar(value=True)
 
-tk.Checkbutton(right_frame, text="TMA auto move", variable=var_tma_auto).pack(anchor="w")
-tk.Checkbutton(right_frame, text="tare force", variable=var_tare_force).pack(anchor="w")
+tk.Checkbutton(center_frame, text="TMA auto move", variable=var_tma_auto).pack(anchor="w")
+tk.Checkbutton(center_frame, text="tare force", variable=var_tare_force).pack(anchor="w")
 
 # measure_mode
-tk.Label(right_frame, text="measure_mode(0:AUTO, 1:MANUAL, 2:SKIP)").pack(anchor="w")
-entry_num_measure = tk.Entry(right_frame)
+tk.Label(center_frame, text="measure_mode(0:AUTO, 1:MANUAL, 2:SKIP)").pack(anchor="w")
+entry_num_measure = tk.Entry(center_frame)
 entry_num_measure.insert(0, "0")
 entry_num_measure.pack(anchor="w")
 
 # number of samples
-tk.Label(right_frame, text="number_of_sample").pack(anchor="w")
-entry_num_sample = tk.Entry(right_frame)
+tk.Label(center_frame, text="number_of_sample").pack(anchor="w")
+entry_num_sample = tk.Entry(center_frame)
 entry_num_sample.insert(0, "2")
 entry_num_sample.pack(anchor="w")
 
 # Run button
-tk.Button(right_frame, text="Run", command=on_run).pack(anchor="w")
+tk.Button(center_frame, text="Run", command=on_run).pack(anchor="w")
 
 # finish measure button
-tk.Label(right_frame, text="For manual measurement", font=("Arial", 11)).pack(anchor="w", pady=(20, 0))
-tk.Button(right_frame, text="Finish measurement", command=pub_measure_finished).pack(anchor="w")
+tk.Label(center_frame, text="For manual measurement", font=("Arial", 11)).pack(anchor="w", pady=(20, 0))
+tk.Button(center_frame, text="Finish measurement", command=pub_measure_finished).pack(anchor="w")
+
+
+# define log display (right)
+tk.Label(right_frame, text="Log", font=("Arial", 11)).pack(anchor="w", pady=(20, 0))
+log_text = scrolledtext.ScrolledText(
+    right_frame,
+    width=60,
+    height=20,
+    state="disabled"
+)
+log_text.pack(fill="both", expand=True, pady=10)
+
+def write_log(message):
+    log_text.configure(state="normal")
+    log_text.insert("end", message + "\n")
+    log_text.see("end")  # auto scrole
+    log_text.configure(state="disabled")
+
 
 
 if __name__ == "__main__":
