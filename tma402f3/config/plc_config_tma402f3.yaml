@@ -1,0 +1,22 @@
+# PLC: KV-7500
+# Address:
+# R1001 - R34001(direct): safety switch
+# R1002 - R34002(direct): furnance close
+# R1003 - R34003(direct): furnance open
+# R1004 - R34004(direct): pushrod up
+# R1005 - R34005(direct): pushrod up slow
+# R1006 - R34006(direct): pushrod stop (up/down)
+# R1007 - R34007(direct): pushrod down slow
+# R1008 - R34008(direct): pushrod down
+# R1009 - R34009(direct): tare force
+
+tma402f3:
+  safety_switch     : "R1001"
+  furnance_close    : "R1002"
+  furnance_open     : "R1003"
+  pushrod_up        : "R1004"
+  pushrod_up_slow   : "R1005"
+  pushrod_stop      : "R1006"
+  pushrod_down_slow : "R1007"
+  pushrod_down      : "R1008"
+  tare_force        : "R1009"
