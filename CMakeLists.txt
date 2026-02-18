@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   message_generation
   #
-  mitsutoyo_instrument_ros1  # MitsutoyoMicrometer.msg
+  mitsutoyo_instrument  # MitsutoyoMicrometer.msg
 )
 
 #add_action_files(
@@ -26,8 +26,8 @@ generate_messages(
 catkin_package(
   CATKIN_DEPENDS rospy std_msgs actionlib actionlib_msgs message_runtime
   #
-  netzsch_instrument_ros1
-  mitsutoyo_instrument_ros1
+  netzsch_instrument
+  mitsutoyo_instrument
   )
 
 include_directories(

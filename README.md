@@ -4,7 +4,7 @@
 ### Manager PC (Ubuntu)
 本体
 ```
-cd auto_tma
+cd labautopy
 python3 -m pip install -e .
 ```
 

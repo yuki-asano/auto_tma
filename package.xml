@@ -18,9 +18,10 @@
   <depend>rospy</depend>
   <depend>std_msgs</depend>
 
-  <depend>netzsch_instrument_ros1</depend>
+  <depend>gui_control</depend>
+  <depend>netzsch_instrument</depend>
   <depend>nextage_nxa_interface</depend>
-  <depend>mitsutoyo_instrument_ros1</depend>
+  <depend>mitsutoyo_instrument</depend>
   <depend>plc_ros_bridge</depend>
 
 </package>
