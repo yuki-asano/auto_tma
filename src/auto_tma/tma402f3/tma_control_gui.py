@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import filedialog, scrolledtext
 import sys
 import io
-from netzsch_instrument.tma402f3.tma402f3_interface import TMA402F3Interface
+from auto_tma.tma402f3.tma402f3_interface import TMA402F3Interface
 
 
 class TMAControlGUI:

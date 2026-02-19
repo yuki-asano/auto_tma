@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Auto TMA
 Comment=Start TMA Measurement System
-Exec=/home/user/catkin_ws/src/auto_tma/bin/run_auto_tma.sh  # absolute path required
+Exec=/home/utokyo-user/auto_tma_ws/src/auto_tma/bin/run_auto_tma.sh  # absolute path required
 Terminal=true
-Icon=/home/user/catkin_ws/src/auto_tma/bin/auto_tma_icon.png
+Icon=/home/utokyo-user/auto_tma_ws/src/auto_tma/bin/auto_tma_icon.png
 Type=Application
 Categories=Development;

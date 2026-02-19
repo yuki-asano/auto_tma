@@ -3,7 +3,7 @@
 set -e
 
 # set same environment with .bashrc
-export ROS_WS=$HOME/catkin_ws
+export ROS_WS=$HOME/auto_tma_ws
 
 # ROS
 source /opt/ros/noetic/setup.bash
@@ -11,7 +11,6 @@ source $ROS_WS/devel/setup.bash
 
 # python
 # for labauto
-export PYTHONPATH=$PYTHONPATH:$ROS_WS/src/labauto
 export PYTHONPATH=$PYTHONPATH:$ROS_WS/src/plcpy
 
 # for nextage

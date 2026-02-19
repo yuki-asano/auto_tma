@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8.0)
 project(auto_tma)
 
-#catkin_python_setup()
-
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
@@ -12,6 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
   #
   mitsutoyo_instrument  # MitsutoyoMicrometer.msg
 )
+
+catkin_python_setup()
 
 #add_action_files(
 #  DIRECTORY action

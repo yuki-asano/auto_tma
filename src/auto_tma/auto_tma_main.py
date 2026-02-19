@@ -9,11 +9,11 @@ import yaml
 from std_msgs.msg import Float32, Bool, String, UInt32
 
 # micrometer
-from mitsutoyo_instrument_ros1.msg import MitsutoyoMicrometer
-from mitsutoyo_instrument_ros1.srv import GetMicrometerValue, GetMicrometerValueResponse
+from mitsutoyo_instrument.msg import MitsutoyoMicrometer
+from mitsutoyo_instrument.srv import GetMicrometerValue, GetMicrometerValueResponse
 # tma
-from netzsch_instrument.tma402f3.tma402f3_interface import TMA402F3Interface
-from netzsch_instrument_ros1.srv import NETZSCH_Measurement
+from auto_tma.tma402f3.tma402f3_interface import TMA402F3Interface
+from netzsch_instrument.srv import NETZSCH_Measurement
 # nextage
 from nextage_nxa_interface.nextage_nxa_interface import NextageNXAInterface
 

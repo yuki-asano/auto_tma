@@ -117,7 +117,13 @@ python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config
 ### テスト用
 工程全体でなく,測定だけで良ければ,ターミナルからservice callを送る. 
 ```
-rosservice call /netzsch_measurement_server "sample_id: 0" sample_thickness: 0.0" 
+rosservice call /netzsch_measurement_server "sample_id: 0" sample_thickness: 0.0
+```
+
+## tma402f3単体での使い方
+```
+cd src/auto_tma/tma402f3
+./tma_control_gui.py  # control GUIの起動
 ```
 
 ## トラブルシューティング
@@ -136,3 +142,7 @@ rosservice call /netzsch_measurement_server "sample_id: 0" sample_thickness: 0.0
     ./run_auto_tma.sh
     など
     ```
+- プログラムを実行しているのにTMAが動作しない
+  - PLC本体(KV-7500)のSWがRUNになっているか確認する
+    - RUN: 動作モード
+    - PRG: プログラム書込モード
