@@ -1,0 +1,20 @@
+repositories:
+  gui_control:
+    type: git
+    url: git@github.com:asanolab/gui_control.git
+  device_control:
+    type: git
+    url: git@github.com:asanolab/device_control.git
+  netzsch_instrument:
+    type: git
+    url: git@github.com:asanolab/netzsch_instrument.git
+  mitsutoyo_instrument:
+    type: git
+    url: git@github.com:asanolab/mitsutoyo_instrument.git
+  robot_control:
+    type: git
+    url: git@github.com:asanolab/robot_control.git
+    version: devel-nextage
+  plcpy:
+    type: git
+    url: git@github.com:asanolab/plcpy.git
