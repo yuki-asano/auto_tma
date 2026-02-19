@@ -52,13 +52,10 @@ update-desktop-database ~/.local/share/applications/
 ~/auto_tma_ws/src/robot_control/robots/nextage/nextage_nxa_interface/api
 ```
 
+### Measurement PC (Windows)  
+- netzsch_instrumentの手順に従い環境構築
+  - https://github.com/asanolab/netzsch_instrument/blob/main/README.md
 
-### Measurement PC (Windows)
-Environment should be built on powershell
-```
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\auto_tma
-python3 -m pip install -e .  # including netzsch_instrument install
-```
 
 ## 実験準備
 ### NEXTAGE
@@ -108,9 +105,8 @@ roslaunch auto_tma auto_tma.launch  # including below
 ### Measurement PC (windows)
 ```
 [terminal1] powershell
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument\scripts
-python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config.yaml
-
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\auto_tma_ws\src\netzsch_instrument\scripts
+python3 .\netzsch_measurement_server.py ../../auto_tma/config/auto_tma_config.yaml
 
 # 注意: ターミナルで直接 ```.\netzsch_measurement_server_thread.py```とすると,pythonが別端末で立ち上がりエラー確認できない
 ```
