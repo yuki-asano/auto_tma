@@ -21,6 +21,7 @@ vcs import src < src/auto_tma/repositories/auto_tma.repos
 
 cd src/auto_tma
 catkin bt
+source ~/auto_tma_ws/devel/setup.bash
 ```
 
 ### Manager PC (Ubuntu)
