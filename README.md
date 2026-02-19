@@ -1,14 +1,35 @@
 # auto_tma
 
-## Install
+## Install & Setup
 ### Manager PC (Ubuntu)
-本体
+**Install python module**
 ```
-cd labautopy
+sudo apt install python3-vcstool
+```
+
+**Setup workspace**
+```
+mkdir -p auto_tma_ws/src
+cd auto_tma_ws
+catkin build
+
+cd src
+git clone git@github.com:yuki-asano/auto_tma.git
+
+cd auto_tma_ws
+vcs import src < src/auto_tma/repositories/auto_tma.repos
+
+cd src/auto_tma
+catkin bt
+```
+
+**Install python module**
+```
+cd plcpy
 python3 -m pip install -e .
 ```
 
-For desktop app
+**Desktop app**
 ```
 1. 関連ファイルのパスをマシン固有のものに変更
 - bin/auto_tma_app.desktop
@@ -68,15 +89,15 @@ roscore
 roslaunch auto_tma auto_tma.launch  # including below
 
   # roslaunch rosbridge_server rosbridge_websocket.launch  # 他PCとroslibで通信する場合に必要
-  # roslaunch mitsutoyo_instrumet_ros1 mitsutoyo_micrometer.launch  # micrometer
-  # rosrun netzsch_instrument_ros1 netzsch_measurement_server_mock.py  # measurement server mock for manual measurement
+  # roslaunch mitsutoyo_instrumet mitsutoyo_micrometer.launch  # micrometer
+  # rosrun netzsch_instrument netzsch_measurement_server_mock.py  # measurement server mock for manual measurement
   # rosrun auto_tma auto_tma_gui.py  # gui controller
 ```
 
 ### Measurement PC (windows)
 ```
 [terminal1] powershell
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument\ros1\scripts
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument\scripts
 python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config.yaml
 
 
