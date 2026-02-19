@@ -1,7 +1,7 @@
 # auto_tma
 
 ## Install & Setup
-### Manager PC (Ubuntu)
+### Common (Manager and Measurement PCs)
 **Install python module**
 ```
 sudo apt install python3-vcstool
@@ -23,6 +23,7 @@ cd src/auto_tma
 catkin bt
 ```
 
+### Manager PC (Ubuntu)
 **Install python module (self made)**
 ```
 cd plcpy
