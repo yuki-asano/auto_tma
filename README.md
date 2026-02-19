@@ -30,16 +30,19 @@ python3 -m pip install -e .
 ```
 
 **Desktop app**
-```
 1. 関連ファイルのパスをマシン固有のものに変更
+```
 - bin/auto_tma_app.desktop
 - bin/run_auto_tma.sh
-
+```
 2. 起動ファイル(.desktop)を登録
+```
 cd auto_tma/bin/
 cp auto_tma_app.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications/
 ```
+→アプリ一覧から起動可能に
+
 
 **NEXTAGE**  
 カワダより取得したapiを適切なフォルダに置く.例えば以下
