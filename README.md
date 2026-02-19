@@ -23,7 +23,7 @@ cd src/auto_tma
 catkin bt
 ```
 
-**Install python module**
+**Install python module (self made)**
 ```
 cd plcpy
 python3 -m pip install -e .
@@ -39,6 +39,12 @@ python3 -m pip install -e .
 cd auto_tma/bin/
 cp auto_tma_app.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications/
+```
+
+**NEXTAGE**
+カワダより取得したapiを適切なフォルダに置く.例えば以下
+```
+~/auto_tma_ws/src/robot_control/robots/nextage/nextage_nxa_interface/api
 ```
 
 
