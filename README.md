@@ -41,7 +41,7 @@ cp auto_tma_app.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications/
 ```
 
-**NEXTAGE**
+**NEXTAGE**  
 カワダより取得したapiを適切なフォルダに置く.例えば以下
 ```
 ~/auto_tma_ws/src/robot_control/robots/nextage/nextage_nxa_interface/api
