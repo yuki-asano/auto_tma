@@ -25,6 +25,9 @@ class TMAControlGUI:
         self.btn_tma_close = tk.Button(root, text="furnance_close_full", command=self.tma_if.furnance_close_full)
         self.btn_tma_close.pack(pady=10)
 
+        self.btn_tma_close = tk.Button(root, text="reset_tma", command=self.tma_if.reset_tma)
+        self.btn_tma_close.pack(pady=10)
+
 
 if __name__ == "__main__":
     root = tk.Tk()

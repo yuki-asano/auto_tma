@@ -157,6 +157,20 @@ class TMA402F3Interface(PLCInterfaceKeyence):
         self.pushrod_stop()
 
 
+    def reset_tma(self):
+        print('reset_tma')
+        self.write_bool(safety_switch, 0)
+        self.write_bool(furnance_close, 0)
+        self.write_bool(furnance_open, 0)
+        self.write_bool(pushrod_up, 0)
+        self.write_bool(pushrod_up_slow, 0)
+        self.write_bool(pushrod_stop, 0)
+        self.write_bool(pushrod_down_slow, 0)
+        self.write_bool(pushrod_down, 0)
+        self.write_bool(tare_force, 0)
+        print(' all flags have changed to 0')
+
+
     # tare_force + pushrodの位置をサンプル挿入に適切な位置へ移動
     def init_pushrod_for_sample_set(self, tare_force=True):
         print('init_pushrod_for_sample_set')
