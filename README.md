@@ -1,7 +1,7 @@
 # auto_tma
 
 ## Install & Setup
-### Manager PC (Ubuntu)
+### Common (Manager and Measurement PCs)
 **Install python module**
 ```
 sudo apt install python3-vcstool
@@ -21,57 +21,69 @@ vcs import src < src/auto_tma/repositories/auto_tma.repos
 
 cd src/auto_tma
 catkin bt
+source ~/auto_tma_ws/devel/setup.bash
 ```
 
-**Install python module**
+### Manager PC (Ubuntu)
+**Install python module (self made)**
 ```
 cd plcpy
 python3 -m pip install -e .
 ```
 
 **Desktop app**
-```
 1. 関連ファイルのパスをマシン固有のものに変更
+```
 - bin/auto_tma_app.desktop
 - bin/run_auto_tma.sh
-
+```
 2. 起動ファイル(.desktop)を登録
+```
 cd auto_tma/bin/
 cp auto_tma_app.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications/
 ```
+→アプリ一覧から起動可能に
 
 
-### Measurement PC (Windows)
-Environment should be built on powershell
+**NEXTAGE**  
+カワダより取得したapiを適切なフォルダに置く.例えば以下
 ```
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\auto_tma
-python3 -m pip install -e .  # including netzsch_instrument install
+~/auto_tma_ws/src/robot_control/robots/nextage/nextage_nxa_interface/api
 ```
 
-## 実験準備
-### NEXTAGE
+### Measurement PC (Windows)  
+- netzsch_instrumentの手順に従い環境構築
+  - https://github.com/asanolab/netzsch_instrument/blob/main/README.md
+
+
+## AutoTMA工程の実行
+### 準備
+**NEXTAGE**
 - 本体
   - 電源を入れる (緑スイッチ)
-  - リセット -> 肩LEDが緑 (青スイッチ)
-- NXproduction
-  - 「Servo」をクリック
-  - APIサーバーを起動(通常、自動起動) -> 黄色帯のExternal control mode activated
-- 初期状態確認
+  - リセット (青スイッチ) -> 肩LEDが緑
+- NEXTAGE PC (NXproduction)
+  - デスクトップ -> TMA自動化(API版) -> NxProduction v3.9 をダブルクリック 
+  - (通常, 自動起動なので不要だが)
+    - APIサーバーを起動 -> 黄色帯のExternal control mode activated
+    - 「Servo」をクリック
+- ロボット初期状態確認
   - 左手のツールを外して初期位置へ置く <- 「DIO」
   - ロボットを初期姿勢に戻す <- 「Initial Pose」
  
-### TMA
+**TMA**
 - 本体
   - 初期状態に戻す (furnanceを閉じる)
-- 操作用GUIを起動(PCからの操作が必要な場合)
+  - 操作が必要な場合は、後述の操作用GUIで操作
   ```
-  cd netzsch_instrument/netzsch_instrument/tma402f3
-  ./tma_control_gui.py
+  furnance_open_full
+  furnance_close_full
+   など
   ```
 
-## 自動TMA工程 実行
-### Manager PC (ubuntu)
+### 自動工程の実行
+**Manager PC (ubuntu)**  
 A. デスクトップアプリ起動ver
 ```
 AutoTMAのアイコンをクリック（デスクトップショートカットに登録済み）
@@ -94,17 +106,16 @@ roslaunch auto_tma auto_tma.launch  # including below
   # rosrun auto_tma auto_tma_gui.py  # gui controller
 ```
 
-### Measurement PC (windows)
+**Measurement PC (windows)**
 ```
 [terminal1] powershell
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\catkin_ws\src\netzsch_instrument\scripts
-python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config.yaml
-
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\auto_tma_ws\src\netzsch_instrument\scripts
+python3 .\netzsch_measurement_server.py ../../auto_tma/config/auto_tma_config.yaml
 
 # 注意: ターミナルで直接 ```.\netzsch_measurement_server_thread.py```とすると,pythonが別端末で立ち上がりエラー確認できない
 ```
 
-### GUI
+**GUI**
 - Run クリックしすると、auto_tmaが開始.
 - Finish measurement -> manual測定時に、測定終了したらクリック
   
@@ -114,13 +125,13 @@ python3 .\netzsch_measurement_server.py ../../../auto_tma/config/auto_tma_config
 でも良い
 ```
 
-### テスト用
-工程全体でなく,測定だけで良ければ,ターミナルからservice callを送る. 
+### テスト & デバッグ
+- 工程全体でなく,測定だけで良ければ,ターミナルからservice callを送る. 
 ```
-rosservice call /netzsch_measurement_server "sample_id: 0" sample_thickness: 0.0
+rosservice call /netzsch_measurement_server "sample_id: 0 sample_thickness: 0.0"
 ```
 
-## tma402f3単体での使い方
+- tma402f3単体での使い方
 ```
 cd src/auto_tma/tma402f3
 ./tma_control_gui.py  # control GUIの起動
