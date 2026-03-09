@@ -65,6 +65,7 @@ tk.Label(left_top_frame, text="TMA control function", font=("Arial", 12, "bold")
 tk.Button(left_top_frame, text="furnance_open_full", command=tma_if.furnance_open_full).pack(anchor="w")
 tk.Button(left_top_frame, text="furnance_close_full", command=tma_if.furnance_close_full).pack(anchor="w")
 tk.Button(left_top_frame, text="init_pushrod_for_sample_set", command=tma_if.init_pushrod_for_sample_set).pack(anchor="w")
+tk.Button(left_top_frame, text="reset_tma", command=tma_if.reset_tma).pack(anchor="w")
 
 # define TMA button (left bottom)
 tk.Label(left_bottom_frame, text="TMA control panel", font=("Arial", 12, "bold"), anchor="w").grid(row=0, column=0)
