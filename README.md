@@ -75,12 +75,13 @@ update-desktop-database ~/.local/share/applications/
 **TMA**
 - 本体
   - 初期状態に戻す (furnanceを閉じる)
-  - 操作が必要な場合は、後述の操作用GUIで操作
-  ```
-  furnance_open_full
-  furnance_close_full
-   など
-  ```
+    - 操作が必要な場合は、後述の操作用GUIで操作
+    ```
+    furnance_open_full
+    furnance_close_full
+     など
+    ```
+  - 一回ソフトを起動してsetpointをonにして炉内温度を一定にしておく(通常25℃程度)
 
 ### 自動工程の実行
 **Manager PC (ubuntu)**  
