@@ -89,6 +89,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     print('########## TMA init ##########')
     tma_if = TMA402F3Interface(tma_ip)
     tma_if.connect_tma()
+    tma_if.reset_tma()
 
     ###############################################################
     print('')
@@ -343,7 +344,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
                 tma_if.furnance_close_full()
                 time.sleep(0.5)
             else:
-                tma_if.pushrod_down_sec(6)  # load tension to sample
+                tma_if.pushrod_down_sec(10)  # load pre-tension to sample. Enough time is required(6s is short). TMA stops automatically when enough pre-tension detected.
                 time.sleep(0.5)
                 tma_if.furnance_close_full()
                 time.sleep(0.5)
@@ -413,6 +414,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     # check disassemble_counter here if necessary
     print('')
     print('########## end of whole TMA process ##########')
+    tma_if.reset_tma()  # reset TMA
     if gui_log_cb:
         gui_log_cb('AutoTMA finished')
 
