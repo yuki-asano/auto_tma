@@ -182,4 +182,4 @@ class TMA402F3Interface(PLCInterfaceKeyence):
         time.sleep(1)
         self.pushrod_up_sec(27)  # Pushrod moves from the bottom to the top until contact to the holder. It takes 27sec. 28sだとぎりぎり, 30sはぶつかる
         time.sleep(1)
-        self.pushrod_down_sec(9)  # Best pushrod position: distance between the top surface of the holder and top surface of the pushrod is 15mm. 9sだと15mmでOK. 11sだと18mm.
+        self.pushrod_down_sec(10)  # Best pushrod position: distance between the top surface of the holder and top surface of the pushrod is 15mm. 9sだと14mm. 10sだと15mmでOK. 11sだと18mm.
