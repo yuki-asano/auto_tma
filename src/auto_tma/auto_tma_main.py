@@ -95,7 +95,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     print('')
     print('########## NEXTAGE init ##########')
     nx_if = NextageNXAInterface(nextage_ip)
-    task_name = u"TMA load and unload (API)"
+    task_name = u"TMA_load_and_unload_(API)"
     total_num = number_of_sample
     var_names = [
         u"tma_process", u"tma_status",
@@ -108,7 +108,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
 
     print('Connecting to NEXTAGE')
     nx_if.setup(speed=motion_speed)  # get authority inside setup()
-    nx_if.set_task(target_task_name=task_name)
+    #nx_if.set_task(target_task_name=task_name)  # set_task was used when NxProduction was 3.9
     nx_if.servo_on()  # Servo ON
     nx_if.start_task()  # Start Task
     time.sleep(2)      # wait for initialization of variables in NEXTAGE
