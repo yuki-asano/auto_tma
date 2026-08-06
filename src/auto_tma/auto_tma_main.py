@@ -12,8 +12,8 @@ from std_msgs.msg import Float32, Bool, String, UInt32
 from mitsutoyo_instrument.msg import MitsutoyoMicrometer
 from mitsutoyo_instrument.srv import GetMicrometerValue, GetMicrometerValueResponse
 # tma
-from auto_tma.tma402f3.tma402f3_interface import TMA402F3Interface
-from netzsch_instrument.srv import NETZSCH_Measurement
+from netzsch_tma402f3.tma402f3_interface import TMA402F3Interface
+from netzsch_measurement.srv import NETZSCH_Measurement
 # nextage
 from nextage_nxa_interface.nextage_nxa_interface import NextageNXAInterface
 
@@ -95,7 +95,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     print('')
     print('########## NEXTAGE init ##########')
     nx_if = NextageNXAInterface(nextage_ip)
-    task_name = u"TMA_load_and_unload_(API)"
+    #task_name = u"TMA_load_and_unload_(API)"
     total_num = number_of_sample
     var_names = [
         u"tma_process", u"tma_status",
@@ -111,16 +111,25 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     #nx_if.set_task(target_task_name=task_name)  # set_task was used when NxProduction was 3.9
     nx_if.servo_on()  # Servo ON
     nx_if.start_task()  # Start Task
-    time.sleep(2)      # wait for initialization of variables in NEXTAGE
+    time.sleep(5)      # wait for initialization of variables in NEXTAGE
 
     # wait for ready
+    nextage_status = nx_if.get_var('nextage_status')
+    print('nextage_status:', nextage_status)  # check
     print("waiting NEXTAGE becomes 'ready'")
-    while (nx_if.get_var(u'nextage_status') != u'ready'):
+    while (nx_if.get_var('nextage_status') != u'ready'):
         time.sleep(0.1)
         pass
-    print("got 'ready', Let's go")
+    nextage_status = nx_if.get_var('nextage_status')
+    print('nextage_status:', nextage_status)  # check
 
     # init_variable_via_plugin
+    process_data = "TMA_load_and_unload_(API)"
+    nx_if.set_var_socket("Process_Data", process_data)
+    time.sleep(0.5)
+
+    print("waiting for process change")
+    time.sleep(5)
     nx_if.set_var_socket("nextage_status", "preparing")
     nx_if.set_var_socket("tma_status", "waiting")
     nx_if.set_var_socket("micrometer_counter", 0)
