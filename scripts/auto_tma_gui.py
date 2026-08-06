@@ -6,7 +6,7 @@ from tkinter import messagebox, scrolledtext
 import threading
 import rospy
 from auto_tma.auto_tma_main import main
-from auto_tma.tma402f3.tma402f3_interface import TMA402F3Interface
+from netzsch_tma402f3.tma402f3_interface import TMA402F3Interface
 from std_msgs.msg import Bool
 
 # connect to tma

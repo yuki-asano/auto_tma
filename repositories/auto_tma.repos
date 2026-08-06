@@ -5,7 +5,7 @@ repositories:
   device_control:
     type: git
     url: git@github.com:asanolab/device_control.git
-  netzsch_instrument:
+  netzsch_instrument:  # netzsch_measurement, netzsch_tma402f3
     type: git
     url: git@github.com:asanolab/netzsch_instrument.git
   mitsutoyo_instrument:

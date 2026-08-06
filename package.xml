@@ -19,7 +19,8 @@
   <depend>std_msgs</depend>
 
   <depend>gui_control</depend>
-  <depend>netzsch_instrument</depend>
+  <depend>netzsch_measurement</depend>
+  <depend>netzsch_tma402f3</depend>
   <depend>nextage_nxa_interface</depend>
   <depend>mitsutoyo_instrument</depend>
   <depend>plc_ros_bridge</depend>
