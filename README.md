@@ -52,9 +52,9 @@ update-desktop-database ~/.local/share/applications/
 ~/auto_tma_ws/src/robot_control/robots/nextage/nextage_nxa_interface/api
 ```
 
-### Measurement PC (Windows)  
-- netzsch_instrumentの手順に従い環境構築
-  - https://github.com/asanolab/netzsch_instrument/blob/main/README.md
+### Measurement PC (Windows)
+- netzsch_measurementの手順に従い環境構築
+  - https://github.com/asanolab/netzsch_instrument/blob/main/netzsch_measurement/README.md
 
 
 ## AutoTMA工程の実行
@@ -103,14 +103,14 @@ roslaunch auto_tma auto_tma.launch  # including below
 
   # roslaunch rosbridge_server rosbridge_websocket.launch  # 他PCとroslibで通信する場合に必要
   # roslaunch mitsutoyo_instrumet mitsutoyo_micrometer.launch  # micrometer
-  # rosrun netzsch_instrument netzsch_measurement_server_mock.py  # measurement server mock for manual measurement
+  # rosrun netzsch_measurement netzsch_measurement_server_mock.py  # measurement server mock for manual measurement
   # rosrun auto_tma auto_tma_gui.py  # gui controller
 ```
 
 **Measurement PC (windows)**
 ```
 [terminal1] powershell
-cd \\wsl.localhost\Ubuntu\home\utokyo-user\auto_tma_ws\src\netzsch_instrument\scripts
+cd \\wsl.localhost\Ubuntu\home\utokyo-user\auto_tma_ws\src\netzsch_instrument\netzsch_measurement\scripts
 python3 .\netzsch_measurement_server.py ../../auto_tma/config/auto_tma_config.yaml
 
 # 注意: ターミナルで直接 ```.\netzsch_measurement_server_thread.py```とすると,pythonが別端末で立ち上がりエラー確認できない
@@ -132,11 +132,6 @@ python3 .\netzsch_measurement_server.py ../../auto_tma/config/auto_tma_config.ya
 rosservice call /netzsch_measurement_server "sample_id: 0 sample_thickness: 0.0"
 ```
 
-- tma402f3単体での使い方
-```
-cd src/auto_tma/tma402f3
-./tma_control_gui.py  # control GUIの起動
-```
 
 ## トラブルシューティング
 - マイクロメータ測定でスイッチをスカって押せない。
