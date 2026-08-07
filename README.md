@@ -57,8 +57,8 @@ update-desktop-database ~/.local/share/applications/
   - https://github.com/asanolab/netzsch_instrument/blob/main/netzsch_measurement/README.md
 
 
-## AutoTMA工程の実行
-### 準備
+## Execution of AutoTMA process
+### Preparation
 **NEXTAGE**
 - 本体
   - 電源を入れる (緑スイッチ)
@@ -83,7 +83,7 @@ update-desktop-database ~/.local/share/applications/
     ```
   - 一回ソフトを起動してsetpointをonにして炉内温度を一定にしておく(通常25℃程度)
 
-### 自動工程の実行
+### Auto-measurement
 **Manager PC (ubuntu)**  
 A. デスクトップアプリ起動ver
 ```
