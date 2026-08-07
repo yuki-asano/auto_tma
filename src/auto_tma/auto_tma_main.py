@@ -28,7 +28,7 @@ def wait_until_enter():
 
 
 ###############################################################
-def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui_log_cb=None):
+def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui_log_cb=None, motion_speed=100):
     # args
     # - tma_auto:
     #    - True  -> TMA実機の自動制御
@@ -39,6 +39,12 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     #    - 0 -> [AUTO]   自動gui制御でTMA測定をする
     #    - 1 -> [MANUAL] マニュアル操作でTMA測定をする
     #    - 2 -> [SKIP]   測定をskip
+    # - number_of_sample:
+    #
+    # - gui_log_cb:
+    #
+    # - motion_speed:
+    #    - max 100 (reduce if slow motion required)
     #
     # status
     nextage_status = None  # {'preparing', 'ready', 'working' 'completed'}
@@ -58,7 +64,6 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     # misc
     current_sample_number = 0  # 1始まり. サンプル1, サンプル2, ,,, サンプル10
     sample_id = 0  # 0始まり
-    motion_speed = 100  # reduce if slow motion required
 
     # publisher
     pub_sample_id = rospy.Publisher('/mitsutoyo_micrometer/write/sample_id', UInt32, queue_size=1)
@@ -71,6 +76,7 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     print('tare_force: %s'       % tare_force)
     print('measure_mode: %s'     % measure_mode)
     print('number_of_sample: %s' % number_of_sample)
+    print('motion_speed: %s'     % motion_speed)
     print('')
     # gui log
     if gui_log_cb:
@@ -123,11 +129,12 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     nextage_status = nx_if.get_var('nextage_status')
     print('nextage_status:', nextage_status)  # check
 
-    # init_variable_via_plugin
+    # set process
     process_data = "TMA_load_and_unload_(API)"
     nx_if.set_var_socket("Process_Data", process_data)
     time.sleep(0.5)
 
+    # init variable via plugin
     print("waiting for process change")
     time.sleep(5)
     nx_if.set_var_socket("nextage_status", "preparing")
@@ -424,6 +431,17 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     print('')
     print('########## end of whole TMA process ##########')
     tma_if.reset_tma()  # reset TMA
+
+    # wait for completed
+    nextage_status = nx_if.get_var('nextage_status')
+    print('nextage_status:', nextage_status)  # check
+    print("waiting NEXTAGE becomes 'completed'")
+    while (nx_if.get_var('nextage_status') != u'completed'):
+        time.sleep(0.1)
+        pass
+    nextage_status = nx_if.get_var('nextage_status')
+    print('nextage_status:', nextage_status)  # check
+
     if gui_log_cb:
         gui_log_cb('AutoTMA finished')
 
