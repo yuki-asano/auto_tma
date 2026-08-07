@@ -131,25 +131,3 @@ python3 .\netzsch_measurement_server.py ../../auto_tma/config/auto_tma_config.ya
 ```
 rosservice call /netzsch_measurement_server "sample_id: 0 sample_thickness: 0.0"
 ```
-
-
-## トラブルシューティング
-- マイクロメータ測定でスイッチをスカって押せない。
-  - マイクロメータ本体が定位置からずれていないか確認。定位置は壁２面に当たる位置。動作中に引っかかってずれている可能性有り。画像認識でマイクロメータ本体を基準位置として動作が作成されているため。
-- デスクトップappが起動できない
-  - app.desktopファイルをデスクトップに置きダブルクリックで起動するのは難しい.gnomeのセキュリティが上がっている？ようで、頑張ればできるかもしれないが、デフォルトでは難しい.
-  - うまく起動できないときは、パス設定周りがうまくいっていない場合がある。絶対パスが安全。
-  - .shには、.bashrcと同じように、関連pkgをexportしていく必要がある。
-  - デバッグ
-    ```
-    単体で起動していく
-    cd auto_tma/bin
-    gtk-launch auto_tma_app.desktop
-  
-    ./run_auto_tma.sh
-    など
-    ```
-- プログラムを実行しているのにTMAが動作しない
-  - PLC本体(KV-7500)のSWがRUNになっているか確認する
-    - RUN: 動作モード
-    - PRG: プログラム書込モード
