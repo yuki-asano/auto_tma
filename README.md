@@ -64,12 +64,12 @@ update-desktop-database ~/.local/share/applications/
   - 電源を入れる (緑スイッチ)
   - リセット (青スイッチ) -> 肩LEDが緑
 - NEXTAGE PC (NXproduction)
-  - デスクトップ -> TMA自動化(API版) -> NxProduction v3.9 をダブルクリック 
+  - デスクトップ -> NxProduction v3.15 をダブルクリック 
   - (通常, 自動起動なので不要だが)
     - APIサーバーを起動 -> 黄色帯のExternal control mode activated
     - 「Servo」をクリック
 - ロボット初期状態確認
-  - 左手のツールを外して初期位置へ置く <- 「DIO」
+  - 両手のツールを外して初期位置へ置く <- 「DIO」
   - ロボットを初期姿勢に戻す <- 「Initial Pose」
  
 **TMA**
