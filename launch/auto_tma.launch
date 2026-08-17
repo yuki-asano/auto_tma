@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="http_server" default="false" />  <!-- remote control over HTTP (see README) -->
+  <arg name="http_server_port" default="8300" />
+
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
   <include file="$(find mitsutoyo_instrument)/launch/mitsutoyo_micrometer.launch" />
 
   <node name="measurement_server_mock" pkg="netzsch_measurement" type="netzsch_measurement_server_mock.py" output="screen" />
   <node name="auto_tma_gui" pkg="auto_tma" type="auto_tma_gui.py" output="screen" />
+
+  <node if="$(arg http_server)" name="auto_tma_http_server" pkg="auto_tma" type="auto_tma_http_server.py" args="--port $(arg http_server_port)" output="screen" />
 
 </launch>

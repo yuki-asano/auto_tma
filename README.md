@@ -82,3 +82,43 @@
 ```
 rosservice call /netzsch_measurement_server "sample_id: 0 sample_thickness: 0.0"
 ```
+
+
+## 外部制御 (HTTP)
+`auto_tma_http_server.py` は, 測定シーケンス `main()` を他PCから起動・監視するための
+JSON/HTTP エンドポイントを提供する. Python 3.8 標準ライブラリのみで, 追加依存は無い.
+
+### 起動
+```
+[terminal] catkin workspace を source した状態で
+rosrun auto_tma auto_tma_http_server.py            # 既定ポート 8300
+rosrun auto_tma auto_tma_http_server.py --port 8300
+
+# もしくは auto_tma.launch から一緒に起動する (既定は起動しない)
+roslaunch auto_tma auto_tma.launch http_server:=true
+```
+
+### エンドポイント
+| Method | Path      | 説明 |
+| ------ | --------- | ---- |
+| GET    | `/status` | `{"state": "idle｜running｜finished｜failed", "running": bool, "params": {...}\|null, "log": [str], "last_error": str\|null, "started_at": float\|null, "finished_at": float\|null}` |
+| POST   | `/start`  | body は `main()` の引数 (`tma_auto`, `tare_force`, `measure_mode`, `number_of_sample`, `motion_speed`). 全て省略可で, 既定値は `main()` と同一. 202 受理 / 400 引数不正 / 409 実行中 |
+
+`log` には `main()` の `gui_log_cb` に流れるメッセージ (`AutoTMA started`,
+`sample_id: N, thickness: X`, `AutoTMA finished`) が直近200件たまる.
+
+### 疎通確認
+```
+curl http://<Manager PC>:8300/status
+curl -X POST http://<Manager PC>:8300/start -H 'Content-Type: application/json' \
+     -d '{"number_of_sample": 2, "measure_mode": 0}'
+```
+
+### 注意
+- run スロットは1つ. 実行中の `/start` は 409 を返す.
+- **`/stop` は無い**. `main()` に中断機構が無いため, 開始した測定は最後まで走る.
+- 引数の検証はサーバ側で `main()` 呼び出し前に行う (`main()` は不正引数で `sys.exit(1)`
+  するため, ワーカースレッド内で踏むと run が黙って消えるため).
+- `tma_auto=false` は `main()` が各ステップでこの端末の Enter 入力を待つモードなので,
+  リモート運用では使わない.
+- run の状態はプロセス内メモリのみ. サーバを再起動すると走行中 run の状態は失われる.
