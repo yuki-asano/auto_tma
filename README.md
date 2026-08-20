@@ -33,13 +33,12 @@
 ### Execute auto-measurement
 **Launch programs**
 - Manager PC (ubuntu)
-  - デスクトップアプリ起動ver
-  ```
-  AutoTMAのアイコンをクリック（デスクトップショートカットに登録済み）
-  
-  or  
-  アプリ一覧から (Superボタン)「AutoTMA」を実行
-  ```
+  - デスクトップアプリ起動ver  
+    - デスクトップショートカットのAutoTMAのアイコンをクリック    
+    - もしくは, アプリ一覧から (Superボタン)「AutoTMA」を実行
+      <p align="left">
+       <img src="bin/auto_tma_icon.png" alt="auto_tma_icon" width="15%">
+      </p>
 
   - CUIから起動ver
   ```
@@ -65,14 +64,20 @@
   ```
 
 **GUI operation**
-- Run をクリックすると、auto_tmaが開始.
+<p align="left">
+  <img src="assets/AutoTMA_GUI_20260820.png" alt="AutoTMA GUI" width="50%">
+</p>
+
+- TMA control function(左上): TMA装置を操作する関数
+- TMA control panel(左下): TMA装置の物理ボタンに対応
+- AutoTMA(右): 自動測定の操作ボタン
+  - Run: auto_tmaを開始.
   ```
   起動はCUIで、
   ./auto_tma.py      
   でも良い. 内部では
   main(tma_auto=True, tare_force=True, do_measure=True, number_of_sample=2)     
   ```
-- Buttons
   - Finish measurement: manual測定時に、測定終了したらクリック
   
 
