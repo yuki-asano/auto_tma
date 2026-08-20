@@ -9,10 +9,6 @@ export ROS_WS=$HOME/auto_tma_ws
 source /opt/ros/noetic/setup.bash
 source $ROS_WS/devel/setup.bash
 
-# python
-# for labauto
-export PYTHONPATH=$PYTHONPATH:$ROS_WS/src/plcpy
-
 # for nextage
 export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.8/site-packages  # for omniORBpy
 export PYTHONPATH=$PYTHONPATH:$ROS_WS/src/robot_control/robots/nextage/nextage_nxa_interface/api/NxApiSdk/python/lib

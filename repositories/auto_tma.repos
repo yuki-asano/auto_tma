@@ -15,6 +15,6 @@ repositories:
     type: git
     url: git@github.com:asanolab/robot_control.git
     version: devel-nextage
-  plcpy:
+  plc_ros_bridge:
     type: git
-    url: git@github.com:asanolab/plcpy.git
+    url: git@github.com:asanolab/plc_ros_bridge.git
