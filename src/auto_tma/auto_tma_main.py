@@ -432,16 +432,22 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     print('########## end of whole TMA process ##########')
     tma_if.reset_tma()  # reset TMA
 
-    # wait for completed
-    nextage_status = nx_if.get_var('nextage_status')
-    print('nextage_status:', nextage_status)  # check
+    # Check completion
+    # wait for NEXTAGE status
     print("waiting NEXTAGE becomes 'completed'")
     while (nx_if.get_var('nextage_status') != u'completed'):
-        time.sleep(0.1)
+        nextage_status = nx_if.get_var('nextage_status')
+        print('nextage_status:', nextage_status)  # check
+        time.sleep(10)
         pass
-    nextage_status = nx_if.get_var('nextage_status')
-    print('nextage_status:', nextage_status)  # check
+    print('NEXTAGE status chenged')
 
+    # send tma_status to NEXTAGE
+    tma_status = 'completed'
+    nx_if.set_var_socket("tma_status", tma_status)
+    time.sleep(0.5)
+
+    # GUI
     if gui_log_cb:
         gui_log_cb('AutoTMA finished')
 
