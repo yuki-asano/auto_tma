@@ -4,7 +4,7 @@ ros_client:
 method:
   file_name: "auto_tma.ngb-s-dil"
   param:
-    lab: "Bldg.12 005/007"
+    lab: "Bldg.12 ABCD"
     project: "auto_tma_test"
     measurer: "a-san"
     comment: ""
