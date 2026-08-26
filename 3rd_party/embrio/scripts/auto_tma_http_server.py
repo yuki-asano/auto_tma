@@ -208,7 +208,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
-    args = parser.parse_args()
+    args = parser.parse_args(rospy.myargv()[1:])
 
     # main() uses rospy service proxies; the node must exist before any run.
     rospy.init_node("auto_tma_http", disable_signals=True)
