@@ -447,6 +447,17 @@ def main(tma_auto=True, tare_force=True, measure_mode=0, number_of_sample=2, gui
     nx_if.set_var_socket("tma_status", tma_status)
     time.sleep(0.5)
 
+    # init process
+    process_data = "Process_selector"
+    nx_if.set_var_socket('Process_Data', process_data)
+    print('Process changed')
+    time.sleep(0.5)
+
+    # release API authority. (API bar should change to yellow from red for next process)
+    nx_if.release_authority()
+    print('Authority released')
+    time.sleep(0.5)
+
     # GUI
     if gui_log_cb:
         gui_log_cb('AutoTMA finished')
