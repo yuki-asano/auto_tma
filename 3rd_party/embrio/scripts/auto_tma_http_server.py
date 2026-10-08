@@ -208,6 +208,8 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
+    # roslaunch appends the remapping arguments (__name:=, __log:=) to every
+    # node's argv; myargv() drops them so argparse only sees our own flags.
     args = parser.parse_args(rospy.myargv()[1:])
 
     # main() uses rospy service proxies; the node must exist before any run.
