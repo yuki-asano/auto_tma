@@ -1,12 +1,8 @@
 # embrio 連携用 HTTP サーバ
 
 AutoTMA の測定シーケンスを**別 PC から起動・監視する**ための HTTP サーバです。
-株式会社 embrio 側のラボオーケストレータ（emalab）から AutoTMA をリモート実行する
+合同会社 embrio 側のラボオーケストレータ（emalab）から AutoTMA をリモート実行する
 ために追加しました。
-
-**auto_tma 本体のファイルは一つも変更していません。** 追加物はすべてこのディレクトリ
-（`3rd_party/embrio/`）に閉じており、明示的に起動しない限り何も動きません。既存の
-`roslaunch auto_tma auto_tma.launch` や GUI の使い方は従来どおりです。
 
 | ファイル | 内容 |
 | --- | --- |
@@ -63,7 +59,6 @@ curl -X POST http://<Manager PC>:8300/start -H 'Content-Type: application/json' 
 
 - **run スロットは 1 つ。** 実行中の `/start` は 409 を返します。
 - **`/stop` はありません。** `main()` に中断機構が無いため、開始した測定は最後まで走ります。
-  中断を入れるには `main()` 側の改修が必要で、この追加物の範囲外としています。
 - **引数の検証はサーバ側で `main()` 呼び出し前に行っています。** `main()` は不正引数で
   `sys.exit(1)` するため、ワーカースレッド内で踏むと run が黙って消えてしまうためです。
   例外（`SystemExit` 含む）は `state=failed` + `last_error` として記録します。
@@ -72,7 +67,3 @@ curl -X POST http://<Manager PC>:8300/start -H 'Content-Type: application/json' 
 - **run の状態はプロセス内メモリのみ保持します。** サーバを再起動すると走行中 run の状態は
   失われます（シーケンス自体も `main()` スレッドごと消えます）。
 - 認証はありません。ラボ内 LAN での利用を前提としています。
-
-## 連絡先
-
-不明点や変更のご要望は embrio（石川）までお願いします。
