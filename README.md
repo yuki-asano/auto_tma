@@ -34,7 +34,7 @@
 **Launch programs**
 - Manager PC (ubuntu)
   - デスクトップアプリ起動ver  
-    - デスクトップショートカットのAutoTMAのアイコンをクリック    
+    - デスクトップショートカットのAutoTMAのアイコンをクリック (embrioとも接続)
     - もしくは, アプリ一覧から (Superボタン)「AutoTMA」を実行
       <p align="left">
        <img src="bin/auto_tma_icon.png" alt="auto_tma_icon" width="15%">
@@ -46,8 +46,10 @@
   roscore
   
   [terminal2]
-  roslaunch auto_tma auto_tma.launch  # including below
-  
+  roslaunch auto_tma auto_tma_embrio.launch  # connect to embrio
+  or
+  roslaunch auto_tma auto_tma.launch  #  only auto_tma
+    
     # roslaunch rosbridge_server rosbridge_websocket.launch  # 他PCとroslibで通信する場合に必要
     # roslaunch mitsutoyo_instrumet mitsutoyo_micrometer.launch  # micrometer
     # rosrun netzsch_measurement netzsch_measurement_server_mock.py  # measurement server mock for manual measurement
