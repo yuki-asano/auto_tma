@@ -15,4 +15,5 @@ export PYTHONPATH=$PYTHONPATH:$ROS_WS/src/robot_control/robots/nextage/nextage_n
 export PYTHONPATH=$PYTHONPATH:$ROS_WS/src/robot_control/robots/nextage/nextage_nxa_interface/api/NxApiSdk/python/lib/NxApiLib/idl_NxApi
 
 
-roslaunch auto_tma auto_tma.launch
+#roslaunch auto_tma auto_tma.launch  # only auto_tma
+roslaunch auto_tma auto_tma_embrio.launch  # with embrio OS

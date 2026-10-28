@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- embrio HTTP control server only. The device nodes still come from the
+     stock `roslaunch auto_tma auto_tma.launch`, which this file deliberately
+     leaves untouched; run that one first (or alongside) as usual. -->
+<launch>
+  <arg name="port" default="8300" />
+
+  <node name="auto_tma_http" pkg="auto_tma" type="auto_tma_http_server.py"
+        args="--port $(arg port)" output="screen" />
+</launch>
