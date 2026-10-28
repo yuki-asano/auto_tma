@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find auto_tma)/launch/auto_tma.launch" />
+  <include file="$(find auto_tma)/3rd_party/embrio/launch/auto_tma_http_server.launch" />   <!-- connect embrio OS -->
+</launch>
